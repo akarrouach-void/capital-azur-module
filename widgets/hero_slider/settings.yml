@@ -1,0 +1,24 @@
+name: 'CA - Hero Slider'
+multiple: TRUE
+category: 'Capital Azur'
+enabled: TRUE
+fields:
+  title:
+    type: text
+    label: 'Title'
+    options:
+      '#required': TRUE
+  description:
+    type: textarea
+    label: 'Description'
+  image:
+    type: image
+    label: 'Right-side Image'
+    options:
+      '#required': TRUE
+  background_color:
+    type: text
+    label: 'Background Color (hex, e.g. #c4a882)'
+  link:
+    type: url_extended
+    label: 'CTA Link (optional)'

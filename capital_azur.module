@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Capital Azur module hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function capital_azur_theme() {
+  return [
+    'capital_azur_header' => [
+      'variables' => [
+        'logo_url'  => NULL,
+        'site_name' => NULL,
+        'tagline'   => NULL,
+        'menu_id'   => 'main',
+        'cta_title' => NULL,
+        'cta_url'   => NULL,
+      ],
+    ],
+    'capital_azur_footer' => [
+      'variables' => [
+        'menu_id'         => 'footer',
+        'copyright'       => NULL,
+        'agency_text'     => NULL,
+        'agency_label'    => NULL,
+        'agency_url'      => NULL,
+        'agency_logo_url' => NULL,
+        'linkedin_url'    => NULL,
+        'youtube_url'     => NULL,
+        'twitter_url'     => NULL,
+      ],
+    ],
+  ];
+}

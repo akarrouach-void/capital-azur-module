@@ -1,0 +1,34 @@
+# Tailwind CSS CDN — loaded once, shared by all widgets.
+# For production, replace with a compiled Tailwind build.
+tailwind:
+  header: true
+  css:
+    base:
+      https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400&display=swap:
+        { type: external, minified: true }
+    theme:
+      css/global.css: {}
+  js:
+    https://cdn.tailwindcss.com: { type: external, minified: true }
+
+ca_header:
+  js:
+    widgets/ca_header/assets/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+    - capital_azur/tailwind
+
+ca_footer:
+  dependencies:
+    - capital_azur/tailwind
+
+ca_hero_slider:
+  js:
+    widgets/hero_slider/assets/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+    - capital_azur/tailwind

@@ -1,0 +1,82 @@
+{{ attach_library('capital_azur/ca_header') }}
+
+{% set menu = simplify_menu(menu_id) %}
+
+{# ── Header ─────────────────────────────────────────────────────── #}
+<header class="bg-white shadow-sm py-2">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center justify-between h-16">
+
+
+      {# Logo + site name #}
+      <a href="/" class="flex items-center gap-3 no-underline shrink-0">
+        {% if logo_url is not empty %}
+          <img src="{{ logo_url }}"
+               alt="{{ site_name }}"
+               class="h-16 w-auto object-contain" />
+        {% endif %}
+      </a>
+
+    <div class='flex items-center gap-4'>
+          {# Desktop navigation #}
+          {% if menu.menu_tree is not empty %}
+            <nav class="hidden lg:flex items-center">
+              {% for item in menu.menu_tree %}
+                {% if not loop.first %}
+                  <span class="text-gray-300 select-none mx-1">|</span>
+                {% endif %}
+                <a href="{{ item.url }}"
+                  class="px-3 py-1 text-sm font-bold uppercase tracking-widest transition-colors
+                          {% if item.in_active_trail %}text-blue-400{% else %}text-gray-700 hover:text-blue-400{% endif %}">
+                  {{ item.text }}
+                </a>
+              {% endfor %}
+            </nav>
+          {% endif %}
+
+          {# CTA + mobile hamburger #}
+          <div class="flex items-center gap-3">
+            {% if cta_url is not empty %}
+              <a href="{{ cta_url }}"
+                class="hidden lg:inline-flex items-center gap-2
+                        px-5 py-2.5 rounded bg-blue-500 text-white
+                        text-[11px] font-bold uppercase tracking-widest
+                        hover:bg-blue-400 transition-colors">
+                {{ cta_title }}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+              </a>
+            {% endif %}
+
+            <button class="lg:hidden text-gray-700 p-1" data-ca-menu-toggle aria-label="Toggle menu">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+      </div>
+      </div>
+    </div>
+
+    {# Mobile drawer #}
+    <div class="hidden lg:hidden border-t border-gray-100 bg-white px-6 py-4" data-ca-mobile-menu>
+      {% for item in menu.menu_tree %}
+        <a href="{{ item.url }}"
+          class="block py-2.5 text-xs font-bold uppercase tracking-widest border-b border-gray-50
+                  {% if item.in_active_trail %}text-blue-400{% else %}text-gray-700{% endif %}">
+          {{ item.text }}
+        </a>
+      {% endfor %}
+      {% if cta_url is not empty %}
+        <a href="{{ cta_url }}"
+          class="mt-4 flex justify-center items-center gap-2 py-3
+                  bg-blue-500 text-white text-xs font-bold uppercase tracking-widest rounded">
+          {{ cta_title }}
+        </a>
+      {% endif %}
+    </div>
+</header>

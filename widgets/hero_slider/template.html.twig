@@ -1,0 +1,82 @@
+{{ attach_library('capital_azur/ca_hero_slider') }}
+
+<div class="relative overflow-hidden w-full" data-ca-slider>
+
+  {# ── Slides track ───────────────────────────────────────────── #}
+  <div class="flex transition-transform duration-700 ease-in-out" data-ca-slider-track>
+
+    {% for item in content %}
+      {% set image_uri = (item.image.0 is defined) ? get_image(item.image.0) : '' %}
+      {% set image_url = image_uri is not empty ? file_url(image_uri) : '' %}
+      {% set bg_color = item.background_color is not empty ? item.background_color : '#c4a882' %}
+
+      <div class="relative min-w-full min-h-[460px] flex items-center"
+           style="background-color: {{ bg_color }};">
+
+        <div class="w-full px-12 flex items-center gap-10" style="max-width: 1400px; margin: 0 auto;">
+
+          {# ── Left: white content card ─────────────────────────── #}
+          <div class="bg-white rounded-lg shadow-lg px-8 py-10 w-[320px] shrink-0 self-center">
+            {# Blue accent bar + title #}
+            <div class="flex items-start gap-3 mb-2">
+              <span class="mt-2 block w-6 h-[3px] bg-blue-600 shrink-0"></span>
+              {% if item.title is not empty %}
+                <h2 class="text-lg font-extrabold text-gray-900 leading-snug">{{ item.title }}</h2>
+              {% endif %}
+            </div>
+
+            {% if item.description is not empty %}
+              <p class="text-sm text-gray-600 leading-relaxed mb-4">{{ item.description }}</p>
+            {% endif %}
+
+            {% if item.link.url is not empty and item.link.title is not empty %}
+              <a href="{{ item.link.url }}"
+                 class="inline-block px-6 py-3 bg-blue-600 text-white text-sm font-semibold rounded hover:bg-blue-700 transition">
+                {{ item.link.title }}
+              </a>
+            {% endif %}
+          </div>
+
+          {# ── Right: floating image ────────────────────────────── #}
+          {% if image_url is not empty %}
+            <div class="flex-1 flex justify-center items-center">
+              <img src="{{ image_url }}"
+                   alt="{{ item.title }}"
+                   class="max-h-96 w-auto object-contain drop-shadow-2xl"
+                   loading="lazy" />
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  {# ── Prev / Next arrows ─────────────────────────────────────── #}
+  {% if content|length > 1 %}
+    <button data-ca-slider-prev
+            class="absolute left-3 top-1/2 -translate-y-1/2 z-20
+                   w-8 h-8 flex items-center justify-center
+                   text-blue-600 text-4xl font-thin
+                   hover:text-blue-800 transition select-none"
+            aria-label="Previous">&#8249;</button>
+
+    <button data-ca-slider-next
+            class="absolute right-3 top-1/2 -translate-y-1/2 z-20
+                   w-8 h-8 flex items-center justify-center
+                   text-blue-600 text-4xl font-thin
+                   hover:text-blue-800 transition select-none"
+            aria-label="Next">&#8250;</button>
+  {% endif %}
+
+  {# ── Progress bar ───────────────────────────────────────────── #}
+  {% if content|length > 1 %}
+    <div class="absolute bottom-0 left-0 w-full h-1 bg-white/20">
+      <div class="h-full bg-blue-600 transition-all duration-700"
+           data-ca-slider-progress
+           style="width: {{ (1 / content|length * 100) }}%"></div>
+    </div>
+  {% endif %}
+
+</div>
