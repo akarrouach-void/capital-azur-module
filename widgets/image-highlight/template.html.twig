@@ -1,0 +1,51 @@
+{{ attach_library('capital_azur/ca_image_highlight') }}
+
+{% set image_uri = (content.0.image.0 is defined) ? get_image(content.0.image.0) : '' %}
+{% set image_url = image_uri is not empty ? file_url(image_uri) : '' %}
+{% set bg_color = content.0.background_color is not empty ? content.0.background_color : '#1a6dd1' %}
+
+<div style="background-color: {{ bg_color }};">
+  <div class="flex flex-col md:flex-row items-stretch" style="max-width: 1400px; margin: 0 auto; min-height: 360px;">
+
+    {# ── Image: top on mobile, left on desktop ───────────────── #}
+    {% if image_url is not empty %}
+      <div class="w-full md:w-1/2 shrink-0 overflow-hidden" style="max-height: 300px; min-height: 200px;">
+        <img src="{{ image_url }}"
+             alt="{{ content.0.title }}"
+             class="w-full h-full object-cover object-center"
+             style="max-height: 300px;" />
+      </div>
+    {% endif %}
+
+    {# ── Text content ────────────────────────────────────────── #}
+    <div class="flex-1 flex flex-col justify-center px-8 md:px-12 py-10">
+
+      <div class="flex items-start gap-4 mb-5">
+        <span class="mt-2 block w-10 h-[3px] bg-white shrink-0"></span>
+        {% if content.0.title is not empty %}
+          <h2 class="text-xl md:text-2xl font-extrabold uppercase text-white leading-tight tracking-wide">
+            {{ content.0.title }}
+          </h2>
+        {% endif %}
+      </div>
+
+      {% if content.0.description is not empty %}
+        <p class="text-white text-sm leading-relaxed mb-8">
+          {{ content.0.description }}
+        </p>
+      {% endif %}
+
+      {% if content.0.link.url is not empty and content.0.link.title is not empty %}
+        <div>
+          <a href="{{ content.0.link.url }}"
+             class="inline-block px-8 py-3 bg-white text-sm font-bold uppercase tracking-widest rounded-lg hover:bg-gray-100 transition"
+             style="color: {{ bg_color }};">
+            {{ content.0.link.title }}
+          </a>
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>

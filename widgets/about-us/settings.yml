@@ -1,0 +1,16 @@
+name: 'CA - About Us'
+multiple: FALSE
+category: 'Capital Azur'
+enabled: TRUE
+fields:
+  title:
+    type: text
+    label: 'Title'
+    options:
+      '#required': TRUE
+  description:
+    type: textarea
+    label: 'Description'
+  link:
+    type: url_extended
+    label: 'CTA button (optional)'

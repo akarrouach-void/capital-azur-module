@@ -32,3 +32,20 @@ ca_hero_slider:
     - core/drupal
     - core/once
     - capital_azur/tailwind
+
+ca_about_us:
+  dependencies:
+    - capital_azur/tailwind
+
+ca_image_highlight:
+  dependencies:
+    - capital_azur/tailwind
+
+ca_services_slider:
+  js:
+    widgets/services-slider/assets/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+    - capital_azur/tailwind

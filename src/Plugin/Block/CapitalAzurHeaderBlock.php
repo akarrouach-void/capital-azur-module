@@ -96,6 +96,8 @@ class CapitalAzurHeaderBlock extends BlockBase {
    */
   public function build() {
     $config = $this->getConfiguration();
+    // theme_get_setting() is used as fallback to get the default logo 
+    // from the theme settings if not set in the block configuration.
     $logo_url = $config['logo_url'] ?: theme_get_setting('logo.url');
 
     return [

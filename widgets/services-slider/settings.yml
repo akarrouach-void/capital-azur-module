@@ -1,0 +1,24 @@
+name: 'CA - Services Slider'
+multiple: TRUE
+category: 'Capital Azur'
+enabled: TRUE
+fields:
+  image:
+    type: image
+    label: 'Icon / Image'
+    options:
+      '#required': TRUE
+  title:
+    type: text
+    label: 'Card Title'
+    options:
+      '#required': TRUE
+extra_fields:
+  title:
+    type: text
+    label: 'Section Title'
+    options:
+      '#required': TRUE
+  description:
+    type: textarea
+    label: 'Section Description'

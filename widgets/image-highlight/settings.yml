@@ -1,0 +1,24 @@
+name: 'CA - Image Highlight'
+multiple: FALSE
+category: 'Capital Azur'
+enabled: TRUE
+fields:
+  title:
+    type: text
+    label: 'Title'
+    options:
+      '#required': TRUE
+  description:
+    type: textarea
+    label: 'Description'
+  image:
+    type: image
+    label: 'Left Image'
+    options:
+      '#required': TRUE
+  background_color:
+    type: text
+    label: 'Background Color (hex, e.g. #1a6dd1)'
+  link:
+    type: url_extended
+    label: 'CTA Button (optional)'
