@@ -3,6 +3,7 @@
 namespace Drupal\capital_azur\Plugin\vactory_dynamic_field\Platform;
 
 use Drupal\vactory_dynamic_field\VactoryDynamicFieldPluginBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Capital Azur platform provider plugin.
@@ -14,13 +15,21 @@ use Drupal\vactory_dynamic_field\VactoryDynamicFieldPluginBase;
  */
 class CapitalAzur extends VactoryDynamicFieldPluginBase {
 
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, $widgetsPath) {
-    parent::__construct(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      \Drupal::service('extension.path.resolver')->getPath('module', 'capital_azur') . '/widgets'
-    );
+  /**
+   * Extension path resolver service.
+   *
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
+   * {@inheritDoc }
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->extensionPathResolver = $container->get('extension.path.resolver');
+    $instance->setWidgetsPath($instance->extensionPathResolver->getPath('module', 'capital_azur') . '/widgets');
+    return $instance;
   }
 
 }

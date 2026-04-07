@@ -9,7 +9,13 @@
 					var $cards = $track.children();
 					var total = $cards.length;
 					var current = 0;
-					var visible = 4; // cards visible at once
+
+					function getVisibleCards() {
+						var w = $(window).width();
+						if (w < 768) return 1;
+						if (w < 1024) return 2;
+						return 4;
+					}
 
 					function cardWidth() {
 						if ($cards.length > 1) {
@@ -22,7 +28,7 @@
 					}
 
 					function maxIndex() {
-						return Math.max(0, total - visible);
+						return Math.max(0, total - getVisibleCards());
 					}
 
 					function goTo(index) {
@@ -32,6 +38,10 @@
 							'translateX(-' + current * cardWidth() + 'px)',
 						);
 					}
+
+					$(window).on('resize', function () {
+						goTo(current);
+					});
 
 					$(slider)
 						.find('[data-ca-services-next]')
