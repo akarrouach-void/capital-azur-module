@@ -1,0 +1,86 @@
+{{ attach_library('capital_azur/ca_faq') }}
+
+<div class="py-24 px-6 md:px-12" style="background-color: #f8f9fc;">
+  <div class="max-w-5xl mx-auto">
+
+    {# ── Section header ──────────────────────────────────────── #}
+    {% if extra_fields.title is not empty %}
+      <div class="flex flex-col items-center text-center gap-6 mb-16">
+        <span class="block w-16 h-[3px] bg-[#2b6df7] shrink-0"></span>
+        <h2 class="text-3xl md:text-[42px] font-extrabold uppercase text-[#0B1526] leading-tight tracking-wide">
+          {{ extra_fields.title }}
+        </h2>
+        {% if extra_fields.description is not empty %}
+          <p class="text-gray-600 text-[17px] md:text-[19px] leading-relaxed max-w-4xl mt-2">
+            {{ extra_fields.description }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {# ── Accordion wrapper ───────────────────────────────────── #}
+    <div class="flex flex-col gap-6" data-ca-faq-accordion>
+
+      {% for item in content %}
+        {% set img_uri = (item.image.0 is defined) ? get_image(item.image.0) : '' %}
+        {% set img_url = img_uri is not empty ? file_url(img_uri) : '' %}
+        
+        {# We assume the first item is open by default. #}
+        {% set is_open = loop.first %}
+
+        <div class="bg-white rounded-lg shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden transition-all duration-300" data-ca-faq-item>
+          
+          {# Accordion Header (Clickable) #}
+          <button class="w-full flex items-center justify-between px-10 py-6 text-left focus:outline-none cursor-pointer relative" data-ca-faq-trigger>
+            <span class="text-[19px] font-bold transition-colors duration-300 {{ is_open ? 'text-[#2b6df7]' : 'text-[#0B1526]' }}" data-ca-faq-title>
+              {{ item.title }}
+            </span>
+            <span class="text-3xl font-light leading-none {{ is_open ? 'text-[#2b6df7]' : 'text-gray-400' }}" data-ca-faq-icon>
+              {{ is_open ? '&minus;'|raw : '&plus;'|raw }}
+            </span>
+            
+            {% if is_open %}
+              <div class="absolute bottom-0 left-6 right-6 h-[2px] bg-gray-100" data-ca-faq-divider></div>
+            {% else %}
+              <div class="absolute bottom-0 left-6 right-6 h-[2px] bg-transparent" data-ca-faq-divider></div>
+            {% endif %}
+          </button>
+
+          {# Accordion Body #}
+          <div class="{{ is_open ? 'block' : 'hidden' }}" data-ca-faq-content>
+            <div class="px-10 py-12 flex flex-col lg:flex-row gap-12 items-start">
+              
+              {% if img_url is not empty %}
+                <div class="w-full lg:w-[45%] shrink-0">
+                  <img src="{{ img_url }}" alt="{{ item.title }}" class="w-full h-auto object-cover" />
+                </div>
+              {% endif %}
+
+              <div class="flex-1 flex flex-col justify-center">
+                {% if item.description is not empty %}
+                  {# Support standard text or text_format (.value) #}
+                  {% set desc_text = item.description.value is defined ? item.description.value : item.description %}
+                  <div class="text-[#0B1526] font-medium text-[17px] leading-relaxed mb-10">
+                    {{ desc_text|raw }}
+                  </div>
+                {% endif %}
+
+                {% if item.link.url is not empty and item.link.title is not empty %}
+                  <div class="flex items-center gap-3 mt-auto">
+                    <span class="block w-8 h-[2px] bg-[#2b6df7] shrink-0"></span>
+                    <a href="{{ item.link.url }}" class="text-[#2b6df7] text-sm font-extrabold uppercase tracking-widest hover:text-blue-800 transition">
+                      {{ item.link.title }}
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</div>

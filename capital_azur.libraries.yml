@@ -29,6 +29,14 @@ ca_hero_slider:
     widgets/hero_slider/assets/script.js: {}
   dependencies:
     - core/jquery
+
+ca_faq:
+  js:
+    widgets/faq/assets/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
     - core/drupal
     - core/once
     - capital_azur/tailwind

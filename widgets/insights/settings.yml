@@ -1,0 +1,34 @@
+name: 'CA - Insights'
+multiple: TRUE
+category: 'Capital Azur'
+enabled: TRUE
+extra_fields:
+  title:
+    type: text
+    label: 'Section Title'
+  description:
+    type: textarea
+    label: 'Section Description'
+  link:
+    type: url_extended
+    label: 'Bottom CTA Link (e.g. "Voir tous les insights")'
+fields:
+  image:
+    type: image
+    label: 'Thumbnail Image'
+    options:
+      '#required': TRUE
+  category:
+    type: text
+    label: 'Category Badge (e.g. ACTUALITÉ)'
+  date:
+    type: text
+    label: 'Date (e.g. 15/01/18)'
+  title:
+    type: text
+    label: 'Article Title'
+    options:
+      '#required': TRUE
+  link:
+    type: url_extended
+    label: 'Article Link (e.g. LIRE PLUS)'

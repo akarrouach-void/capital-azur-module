@@ -1,28 +1,28 @@
 {{ attach_library('capital_azur/ca_services_slider') }}
 
-<div class="py-14 px-6" style="background-color: #f0f4f8;">
+<div class="py-24 px-6" style="background-color: #f0f4f8;">
   <div style="max-width: 1200px; margin: 0 auto;">
 
     {# ── Section header ──────────────────────────────────────── #}
     {% if extra_fields.title is not empty %}
       <div class="flex items-start gap-4 mb-4">
         <span class="mt-2 block w-8 h-[3px] bg-blue-600 shrink-0"></span>
-        <h2 class="text-2xl font-extrabold uppercase text-gray-900 leading-tight tracking-wide">
+        <h2 class="text-3xl font-extrabold uppercase text-gray-900 leading-tight tracking-wide">
           {{ extra_fields.title }}
         </h2>
       </div>
     {% endif %}
 
     {% if extra_fields.description is not empty %}
-      <p class="text-gray-600 text-sm leading-relaxed mb-10 ml-12">
+      <p class="text-gray-600 text-base leading-relaxed mb-12 ml-12">
         {{ extra_fields.description }}
       </p>
     {% endif %}
 
     {# ── Slider wrapper ──────────────────────────────────────── #}
-    <div class="relative" data-ca-services-slider>
+    <div class="relative mt-8" data-ca-services-slider>
 
-      <div class="overflow-hidden mx-10">
+      <div class="overflow-hidden mx-12">
         <div class="flex gap-5 transition-transform duration-500 ease-in-out"
              data-ca-services-track>
 
@@ -30,15 +30,15 @@
             {% set img_uri = (item.image.0 is defined) ? get_image(item.image.0) : '' %}
             {% set img_url = img_uri is not empty ? file_url(img_uri) : '' %}
 
-            <div class="bg-white rounded-2xl shadow-sm flex flex-col items-center justify-end px-6 pt-10 pb-8 shrink-0"
-                 style="width: 220px; min-height: 240px;">
+            <div class="bg-white rounded-3xl shadow-sm flex flex-col items-center justify-center px-6 py-8 shrink-0"
+                 style="width: calc(25% - 15px); min-height: 300px;">
               {% if img_url is not empty %}
                 <img src="{{ img_url }}"
                      alt="{{ item.title }}"
                      class="w-24 h-24 object-contain mb-6" />
               {% endif %}
               {% if item.title is not empty %}
-                <p class="text-sm font-bold text-gray-800 text-center">{{ item.title }}</p>
+                <p class="text-base font-bold text-gray-800 text-center">{{ item.title }}</p>
               {% endif %}
             </div>
           {% endfor %}
@@ -47,14 +47,14 @@
       </div>
 
       <button data-ca-services-prev
-              class="absolute left-0 top-1/2 -translate-y-1/2 z-10
-                     text-blue-600 text-5xl font-thin leading-none
+              class="absolute -left-6 top-1/2 -translate-y-1/2 z-10
+                     text-blue-600 text-6xl font-thin leading-none
                      hover:text-blue-800 transition select-none"
               aria-label="Previous">&#8249;</button>
 
       <button data-ca-services-next
-              class="absolute right-0 top-1/2 -translate-y-1/2 z-10
-                     text-blue-600 text-5xl font-thin leading-none
+              class="absolute -right-6 top-1/2 -translate-y-1/2 z-10
+                     text-blue-600 text-6xl font-thin leading-none
                      hover:text-blue-800 transition select-none"
               aria-label="Next">&#8250;</button>
 

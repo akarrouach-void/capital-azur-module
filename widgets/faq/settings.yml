@@ -1,0 +1,26 @@
+name: 'CA - FAQ Accordion'
+multiple: TRUE
+category: 'Capital Azur'
+enabled: TRUE
+extra_fields:
+  title:
+    type: text
+    label: 'Section Title'
+  description:
+    type: textarea
+    label: 'Section Description'
+fields:
+  title:
+    type: text
+    label: 'Accordion Header (e.g., Comptes et cartes)'
+    options:
+      '#required': TRUE
+  description:
+    type: text_format
+    label: 'Description Text'
+  image:
+    type: image
+    label: 'Image'
+  link:
+    type: url_extended
+    label: 'CTA Link (Optional)'

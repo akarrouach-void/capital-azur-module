@@ -1,0 +1,95 @@
+{{ attach_library('capital_azur/tailwind') }}
+
+<div class="py-24 md:py-32 px-6" >
+  <div class="max-w-6xl mx-auto">
+
+    {# ── Section header ──────────────────────────────────────── #}
+    <div class="flex flex-col items-center text-center gap-5 mb-16">
+      <div class="flex items-center gap-4">
+        <span class="block w-12 h-[3px] bg-[#2b6df7] shrink-0"></span>
+        {% if extra_fields.title is not empty %}
+          <h2 class="text-3xl md:text-[38px] font-extrabold uppercase text-[#0B1526] leading-tight tracking-wide">
+            {{ extra_fields.title }}
+          </h2>
+        {% endif %}
+      </div>
+      
+      {% if extra_fields.description is not empty %}
+        <p class="text-gray-600 text-[17px] md:text-[19px] leading-relaxed max-w-3xl mt-4">
+          {{ extra_fields.description }}
+        </p>
+      {% endif %}
+    </div>
+
+    {# ── Grid of cards ───────────────────────────────────────── #}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+
+      {% for item in content %}
+        {% set img_uri = (item.image.0 is defined) ? get_image(item.image.0) : '' %}
+        {% set img_url = img_uri is not empty ? file_url(img_uri) : '' %}
+        {% set link_url = item.link.url is not empty ? item.link.url : '#' %}
+        {% set link_title = item.link.title is not empty ? item.link.title : 'LIRE PLUS' %}
+
+        <div class="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col transition-transform hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          
+          {# Image #}
+          {% if img_url is not empty %}
+            <a href="{{ link_url }}" class="block shrink-0">
+              <img src="{{ img_url }}" alt="{{ item.title }}" class="w-full h-56 object-cover object-center" />
+            </a>
+          {% endif %}
+
+          {# Card Content #}
+          <div class="p-8 flex flex-col flex-1">
+            
+            {# Meta logic (Badge + Date) #}
+            <div class="flex items-center gap-4 mb-4">
+              {% if item.category is not empty %}
+                <span class="inline-block px-3 py-1 bg-[#09224A] text-white text-[11px] font-bold uppercase rounded-full tracking-wider">
+                  {{ item.category }}
+                </span>
+              {% endif %}
+              {% if item.date is not empty %}
+                <span class="text-gray-400 text-sm font-medium">
+                  {{ item.date }}
+                </span>
+              {% endif %}
+            </div>
+
+            {# Title #}
+            {% if item.title is not empty %}
+              <h3 class="text-[22px] font-bold text-[#0B1526] leading-snug mb-8">
+                <a href="{{ link_url }}" class="hover:text-[#2b6df7] transition-colors">
+                  {{ item.title }}
+                </a>
+              </h3>
+            {% endif %}
+
+            {# Lire Plus Link #}
+            <div class="mt-auto">
+              <a href="{{ link_url }}" class="inline-block text-[#2b6df7] text-sm font-extrabold uppercase tracking-widest hover:text-blue-800 transition relative pb-1 group">
+                {{ link_title }}
+                {# Blue underline line, aligned like the design #}
+                <span class="absolute bottom-0 left-0 w-full h-[2px] bg-[#2b6df7] transform origin-left transition-transform group-hover:scale-x-110"></span>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+    {# ── Global bottom link (Voir tous les insights) ─────────── #}
+    {% if extra_fields.link.url is not empty and extra_fields.link.title is not empty %}
+      <div class="flex justify-center">
+        <a href="{{ extra_fields.link.url }}"
+           class="inline-block px-10 py-3.5 bg-transparent border-2 border-[#2b6df7] text-[#2b6df7] text-sm font-bold uppercase tracking-widest rounded-lg hover:bg-[#2b6df7] hover:text-white transition-colors duration-300">
+          {{ extra_fields.link.title }}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
